@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId("user_id")->constrained();
-            $table->foreignId("region_id")->constrained();
+            $table->foreignId("place_id")->constrained();
             $table->foreignId("category_id")->constrained();
             $table->string("store");
             $table->string("body");

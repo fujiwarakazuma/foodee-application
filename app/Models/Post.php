@@ -11,8 +11,24 @@ class Post extends Model
     
     protected $fillable = [
     'store',
-    'region',
-    'category',
+    'region_id',
+    'category_id',
     'body',
-];
+    'user_id',
+    ];
+    
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+    
+    public function region()
+    {
+        return $this->belongsTo(Region::class);
+    }
+    
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

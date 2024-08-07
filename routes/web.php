@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\LikeController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +31,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/', [PostController::class, 'index'])->name('index');
-Route::get('/posts/create',[PostController::class, 'create'])->name('create');
-Route::post('/posts', [PostController::class, 'store'])->name('store');
-Route::get('/posts/{post}', [PostController::class, 'show'])->name('show');
+Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
+Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
+
+Route::post('posts/{post}/like', [LikeController::class, 'store'])->name('likes.store');
+Route::delete('posts/{post}/like', [LikeController::class, 'destroy'])->name('likes.destroy');
+Route::post('posts/{post}/comments', [CommentController::class, 'store'])->name('comments.store');
 
 require __DIR__.'/auth.php';

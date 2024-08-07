@@ -1,6 +1,6 @@
 <x-app-layout>
   
-        <form action="{{route('store')}}" method="POST">
+        <form action="{{route('posts.store')}}" method="POST">
           @csrf
           <div class="store">
             <h2>Store</h2>

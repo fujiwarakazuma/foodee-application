@@ -12,12 +12,14 @@ class PostController extends Controller
 {
     //
     public function index(Post $post){
+        $posts = Post::withCount('likes')->orderBy('likes_count', 'desc')->get();
         return view('posts.index')->with(['posts' => $post->get()]);
+        // dd($post);
     }
     
     public function show(Post $post){
         return view('posts.show')->with(['post' => $post]);
-        
+        //   dd($post); 
     }
     
     public function create() {
@@ -37,8 +39,8 @@ class PostController extends Controller
         $post->user_id = $userId;
         $post->save();
         
-        return redirect('/posts/' . $post->id);
+
+        return redirect()->route('posts.index');
     }
-    
-    
+
 }

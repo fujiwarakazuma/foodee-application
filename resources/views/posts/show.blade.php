@@ -7,7 +7,6 @@
             <p>{{ $post->body }}</p>    
         </div>
     </div>
-    <!--<a href="">{{ $post->category->category }}</a>-->
     {{ $post->category->category }}
     {{ $post->region->region }}
     
@@ -31,10 +30,11 @@
         <textarea name="comment" required></textarea>
         <button type="submit">Comment</button>
     </form>
-    @foreach ($post->comments as $comment)
+    @foreach ($comments as $comment)
         <div>
-            <p>{{ $comment->body }}</p>
-            <p>by {{ $comment->user->name }}</p>
+            <p>{{ $comment->comment }}</p>
+            <p>by {{$comment->user->name}}</p>
+            <p>{{$comment->created_at}}</p>
         </div>
     @endforeach
     <div class="footer">

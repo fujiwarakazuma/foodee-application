@@ -1,12 +1,46 @@
 <x-app-layout>
     
     @foreach($posts as $post)
-        <div>
-            <h2><a href="{{ route('posts.show', $post) }}">{{ $post->store }}</a></h2>
-            <p>{{ $post->body }}</p>
-            <p>{{ $post->likes_count }} likes</p>
-            <a href="{{ route('posts.show', $post) }}">View Post</a>
+       
+        <h1 class="title">
+            <a href="{{route('posts.show',$post)}}">{{ $post->store }}</a>
+        </h1>
+        <div class="content">
+            <div class="content__post">
+                <p>{{ $post->body }}</p>    
+            </div>
         </div>
+        {{ $post->category->category }}
+        {{ $post->region->region }}
+        
+        <!--<div class="edit">-->
+        <!--    <a href="/posts/{{$post->id}}/edit">edit</a>-->
+        <!--</div>-->
+        @foreach ($comments as $comment)
+            <div>
+                <p>{{ $comment->comment }}</p>
+                <p>by {{$comment->user->name}}</p>
+                <p>{{$comment->created_at}}</p>
+            </div>
+        @endforeach
+            @if ($post->likes()->where('user_id', auth()->id())->exists())
+            <form action="{{ route('likes.destroy', $post) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="submit">Unlike</button>
+            </form>
+        @else
+            <form action="{{ route('likes.store', $post) }}" method="POST">
+                @csrf
+                <button type="submit">Like</button>
+            </form>
+        @endif
+        <form action="{{ route('comments.store', $post) }}" method="POST">
+            @csrf
+            <textarea name="comment" required></textarea>
+            <button type="submit">Comment</button>
+        </form>
+        <p>{{ $post->likes_count }} likes</p>
     @endforeach
     
 </x-app-layout>

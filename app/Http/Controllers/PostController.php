@@ -11,19 +11,23 @@ use App\Models\Category;
 class PostController extends Controller
 {
     //
-    public function index(Post $post){
+    public function index(Post $post)
+    {
+        $comments = $post->comments;
         $posts = Post::withCount('likes')->orderBy('likes_count', 'desc')->get();
-        return view('posts.index')->with(['posts' => $post->get()]);
+        return view('posts.index')->with(['posts' => $post->get(), 'comments' =>$comments]);
         // dd($post);
     }
     
-    public function show(Post $post){
+    public function show(Post $post)
+    {
         $comments = $post->comments;
         return view('posts.show')->with(['post' => $post, 'comments' =>$comments]);
         //   dd($post); 
     }
     
-    public function create() {
+    public function create()
+    {
         $regions = Region::all();
         $categories = Category::all();
         return view('posts.create')->with([
@@ -33,14 +37,14 @@ class PostController extends Controller
     }
 
     
-    public function store(Request $request, Post $post) {
+    public function store(Request $request, Post $post) 
+    {
         $userId = Auth::id();
         $input = $request['post'];
         $post->fill($input);
         $post->user_id = $userId;
         $post->save();
-        
-
+    
         return redirect()->route('posts.index');
     }
 

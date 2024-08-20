@@ -47,5 +47,10 @@ class PostController extends Controller
     
         return redirect()->route('posts.index');
     }
+    
+    public function profile(Post $post)
+    {
+        return view('posts.profile')->with(['post'=>$post]);
+    }
 
 }

@@ -1,7 +1,7 @@
 <x-app-layout>
-    
-    <h1 class="user">{{$post->user->name}}</h1>
-    
+
+        <h1 class="user">{{$post->user->name}}</h1>
+
     <h2 class="title">
             {{ $post->store }}
     </h2>

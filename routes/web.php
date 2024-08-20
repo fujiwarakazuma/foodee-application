@@ -34,7 +34,9 @@ Route::middleware('auth')->group(function () {
 Route::get('/posts', [PostController::class, 'index'])->name('posts.index');
 Route::get('/posts/create',[PostController::class, 'create'])->name('posts.create');
 Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::get('/posts/profile',[PostController::class, 'profile'])->name('posts.profile');
 Route::get('/posts/{post}', [PostController::class, 'show'])->name('posts.show');
+
 
 
 Route::post('posts/{post}/like', [LikeController::class, 'store'])->name('likes.store');
